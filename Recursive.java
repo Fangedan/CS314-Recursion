@@ -15,7 +15,7 @@
  *  email address: vishal.vijayakumar@utexas.edu
  *
  *  Grader name: Casey
- *  Section number: 50760 jninj
+ *  Section number: 50760 
  */
 
 import java.awt.Color;
