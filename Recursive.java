@@ -39,9 +39,29 @@ public class Recursive {
     public static int nextIsDouble(int[] data) {
         if (data == null) {
             throw new IllegalArgumentException("Failed precondition: "
-                    + "revString. parameter may not be null.");
+                    + "nextIsDouble. Parameter may not be null.");
         }
-        return 0; // Change as necessary
+        // If the array has less than 2 elements, no pairs can exist
+        if (data.length < 2) {
+            return 0;
+        }
+        return countPairs(data, 0);
+    }
+
+    private static int countPairs(int[] data, int index) {
+        // If we are at the end of the array, no more pairs can exist
+        if (index >= data.length - 1) {
+            return 0; 
+        }
+        
+        // Check if current element is followed by double the next element
+        if (data[index] * 2 == data[index + 1]) {
+            // Found a pair, count it and move to the next index
+            return 1 + countPairs(data, index + 1); 
+        } else {
+            // No pair found, move to the next index
+            return countPairs(data, index + 1); 
+        }
     }
 
     /**
