@@ -6,7 +6,7 @@
  *
  *  Number of slip days used: 0
  *
- *  Student 1: Andrew Lin
+ *  Student 1: Andrew Lin 
  *  UTEID: al58444
  *  email address: alin257274@utexas.edu
  *
