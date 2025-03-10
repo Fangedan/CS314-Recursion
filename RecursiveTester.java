@@ -1,21 +1,21 @@
 /*  Student information for assignment:
 *
-*  On <MY|OUR> honor, <NAME1> (and <NAME2),
-*  this programming assignment is <MY|OUR> own work
-*  and <I|WE> have not provided this code to any other student.
+*  On our honor, Andrew Lin and Vishal Vijayakumar's,
+*  this programming assignment is our own work
+*  and we have not provided this code to any other student.
 *
-*  Number of slip days used:
+*  Number of slip days used: 0
 *
-*  Student 1:
-*  UTEID:
-*  email address:
+*  Student 1: Andrew Lin
+*  UTEID: al58444
+*  email address: alin257274@utexas.edu
 *
-*  Student 2:
-*  UTEID:
-*  email address:
+*  Student 2: Vishal Vijayakumar
+*  UTEID: vv8945
+*  email address: vishal.vijayakumar@utexas.edu
 *
-*  Grader name:
-*  Section number:
+*  Grader name: Casey
+*  Section number: 50760
 */
 
 /**
