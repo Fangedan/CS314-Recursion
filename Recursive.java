@@ -14,12 +14,12 @@
  *  UTEID: vv8945
  *  email address: vishal.vijayakumar@utexas.edu
  *
- *  Grader name: Casey
- *  Section number: 50760 iygbhknlmnbj
+ *  Grader name: Casey yippeeeeeee
+ *  Section number: 50760 
  */
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics; 
 /**
  * Various recursive methods to be implemented.
  */
