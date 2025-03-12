@@ -88,8 +88,25 @@ public class Recursive {
      * @param x the x coordinate of the upper left corner of the current square
      * @param y the y coordinate of the upper left corner of the current square
      */
-    private static void drawSquares(Graphics g, int size, int limit,
-                                    double x, double y) {
+    private static void drawSquares(Graphics g, int size, int limit, double x, double y) {
+        if (size < limit) {
+            return; // Base case: Stop when the square size is too small
+        }
+
+        int newSize = size / 3; // Size of the subdivided squares
+
+        // "Cut out" the center square by drawing a white rectangle
+        g.fillRect((int) (x + newSize), (int) (y + newSize), newSize, newSize);
+
+        // Recursively draw the 8 surrounding squares
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i == 1 && j == 1) {
+                    continue; // Skip the center square
+                }
+                drawSquares(g, newSize, limit, x + i * newSize, y + j * newSize);
+            }
+        }
     }
 
     /**
