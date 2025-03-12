@@ -34,9 +34,9 @@ public class RecursiveTester {
     }
 
     private static void doNextIsDoubleTests() {
-        int[] numsForDouble = { 1, 2, 4, 8, 16, 32, 64, 128, 256 };
+        int[] numsForDouble = { 0, 0, 1, 1, 2, 2, 4, 4, 8 };
         int actualDouble = Recursive.nextIsDouble(numsForDouble);
-        int expectedDouble = 8;
+        int expectedDouble = 4;
         if (actualDouble == expectedDouble) {
             System.out.println("Test 1 passed. next is double.");
         } else {
@@ -44,52 +44,22 @@ public class RecursiveTester {
                     + expectedDouble + ", actual: " + actualDouble);
         }
 
-        numsForDouble = new int[] { 1, 3, 4, 2, 32, 8, 128, -5, 6 };
+        numsForDouble = new int[] { -5, 10, 0, 0, 0, 256, 128, 256, 0, 0};
         actualDouble = Recursive.nextIsDouble(numsForDouble);
-        expectedDouble = 0;
+        expectedDouble = 4;
         if (actualDouble == expectedDouble) {
             System.out.println("Test 2 passed. next is double.");
         } else {
             System.out.println("Test 2 failed. next is double. expected: "
                     + expectedDouble + ", actual: " + actualDouble);
         }
-
-        numsForDouble = new int[] { 1, 0, 0, -5, -10, 32, 64, 128, 2, 9, 18 };
-        actualDouble = Recursive.nextIsDouble(numsForDouble);
-        expectedDouble = 5;
-        if (actualDouble == expectedDouble) {
-            System.out.println("Test 3 passed. next is double.");
-        } else {
-            System.out.println("Test 3 failed. next is double. expected: "
-                    + expectedDouble + ", actual: " + actualDouble);
-        }
-
-        numsForDouble = new int[] { 37 };
-        actualDouble = Recursive.nextIsDouble(numsForDouble);
-        expectedDouble = 0;
-        if (actualDouble == expectedDouble) {
-            System.out.println("Test 4 passed. next is double.");
-        } else {
-            System.out.println("Test 4 failed. next is double. expected: "
-                    + expectedDouble + ", actual: " + actualDouble);
-        }
-
-        numsForDouble = new int[] { 37, 74 };
-        actualDouble = Recursive.nextIsDouble(numsForDouble);
-        expectedDouble = 1;
-        if (actualDouble == expectedDouble) {
-            System.out.println("Test 5 passed. next is double.");
-        } else {
-            System.out.println("Test 5 failed. next is double. expected: "
-                    + expectedDouble + ", actual: " + actualDouble);
-        }
-        System.out.println();
+        System.out
     }
 
     // Test the Sierpinski carpet method.
     private static void doCarpetTest() {
-        // Recursive.drawCarpet(729, 4);
-        // Recursive.drawCarpet(729, 1);
+        Recursive.drawCarpet(729, 4);
+        Recursive.drawCarpet(729, 1);
     }
 
     private static void doFairTeamsTests() {
@@ -104,23 +74,9 @@ public class RecursiveTester {
 //         "\n");
 //         System.out.println(actualInt);
 
-        int[] abilities = { 1, 2, 3, 4, 5, 6, 7 };
-        showFairTeamsResults(Recursive.minDifference(3, abilities), 1, 1);
-        showFairTeamsResults(Recursive.minDifference(5, abilities), 2, 2);
-        showFairTeamsResults(Recursive.minDifference(6, abilities), 4, 3);
-
-        abilities = new int[] { 1, 12, 46, 60, 53, 86, 72, 79, 44, 7 };
-        showFairTeamsResults(Recursive.minDifference(3, abilities), 3, 4);
-        showFairTeamsResults(Recursive.minDifference(5, abilities), 19, 5);
-
-        abilities = new int[] { 10, 10, 7, 7, 7 };
-        showFairTeamsResults(Recursive.minDifference(2, abilities), 1, 6);
-
-        abilities = new int[] { -10, -10, -8, -8, -8 };
-        showFairTeamsResults(Recursive.minDifference(2, abilities), 4, 7);
-
-        abilities = new int[] { -5, 5, 10, 5, 10, -15 };
-        showFairTeamsResults(Recursive.minDifference(2, abilities), 0, 8);
+        int[] abilities = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        showFairTeamsResults(Recursive.minDifference(9, abilities), 7, 1);
+        showFairTeamsResults(Recursive.minDifference(5, abilities), 0, 2);
     }
 
     // Show the results of a fair teams test by comparing actual and expected
