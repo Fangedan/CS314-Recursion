@@ -167,7 +167,8 @@ public class Recursive {
             teamSums[i] += abilities[index];
 
             // Recurse to next person
-            minDifference = Math.min(minDifference, distributeAbilities(abilities, index + 1, teamSums));
+            minDifference = Math.min(minDifference, distributeAbilities
+                                    (abilities, index + 1, teamSums));
 
             // Backtrack: remove ability from team i
             teamSums[i] -= abilities[index];
