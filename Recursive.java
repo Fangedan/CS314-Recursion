@@ -125,6 +125,59 @@ public class Recursive {
      * return value will be greater than or equal to 0.
      */
     public static int minDifference(int numTeams, int[] abilities) {
-        return -1;
+        // Check Preconditions
+        if (numTeams < 2 || abilities == null || abilities.length < numTeams) {
+            throw new IllegalArgumentException("Violation of precondition: " +
+            "minDifference. pre: numTeams >= 2, abilities != null, abilities.length " +
+            ">= numTeams. numTeams: " + numTeams + ", abilities: " + abilities);
+        }
+        
+        int[] teamSums = new int[numTeams];
+
+        return distributeAbilities(abilities, 0, teamSums);
+    }
+
+    /**
+     * Recursive helper method to distribute abilities among teams.
+     *
+     * @param abilities The array of ability scores.
+     * @param index The current index of the ability score being assigned.
+     * @param teamSums The array representing the sum of abilities in each team.
+     * @return The minimum possible difference between max and min team sum.
+     */
+    private static int distributeAbilities(int[] abilities, int index, int[] teamSums) {
+        if (index == abilities.length) { // All people have been put into a team
+            int max = Integer.MIN_VALUE;
+            int min = Integer.MAX_VALUE;
+
+            // Find the max and min sum among teams
+            for (int sum: teamSums) {
+                max = Math.max(max, sum);
+                min = Math.min(min, sum);
+            }
+
+            return max - min; // Difference between max and min team abilities
+        }
+
+        int minDifference = Integer.MAX_VALUE;
+
+        // Distribute abilities[index] into each team
+        for (int i = 0; i < teamSums.length; i++) {
+            // Assign ability to team i
+            teamSums[i] += abilities[index];
+
+            // Recurse to next person
+            minDifference = Math.min(minDifference, distributeAbilities(abilities, index + 1, teamSums));
+
+            // Backtrack: remove ability from team i
+            teamSums[i] -= abilities[index];
+
+            // Optimization: If this is the first empty team, don't try the next empty teams
+            if (teamSums[i] == 0) {
+                break;
+            }
+        }
+
+        return minDifference;
     }
 }
