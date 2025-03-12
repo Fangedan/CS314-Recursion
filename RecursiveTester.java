@@ -53,7 +53,7 @@ public class RecursiveTester {
             System.out.println("Test 2 failed. next is double. expected: "
                     + expectedDouble + ", actual: " + actualDouble);
         }
-        System.out
+        System.out.println();
     }
 
     // Test the Sierpinski carpet method.
