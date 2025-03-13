@@ -25,7 +25,7 @@ public class LetterInventory {
     // Instance variables
     private final int ALPHABET_LENGTH = 26; // Magic Number
     private int numOfInventoryLetters;
-    private String Word;
+    private String lowerCaseWord;
     private TreeMap<Character, Integer> lettersAndIndex;
     private ArrayList<Integer> frequencies;
 
@@ -42,7 +42,7 @@ public class LetterInventory {
             "LetterInventory. Word may not be null.");
         }
 
-        Word = word.toLowerCase();
+        lowerCaseWord = word.toLowerCase();
         lettersAndIndex = new TreeMap<>();
         frequencies = new ArrayList<>(ALPHABET_LENGTH);
 
@@ -53,7 +53,7 @@ public class LetterInventory {
         }
 
         // Populate frequency list
-        for (char c : Word.toCharArray()) {
+        for (char c : lowerCaseWord.toCharArray()) {
             if ('a' > c && c > 'z') { // Ignore non-letter characters
                 int index = lettersAndIndex.get(c);
                 frequencies.set(index, frequencies.get(index) + 1);
@@ -66,10 +66,9 @@ public class LetterInventory {
     * Returns the frequency of a given letter in this LetterInventory.
     *
     * @param ch The character whose frequency is to be retrieved.
-    *           Must be a lowercase letter between 'a' and 'z'.
-     * @throws IllegalArgumentException if ch is not between 'a' and 'z'.
-     * @return The frequency of the character in this inventory. If the character 
-     *         is not found, returns 0.
+    * @throws IllegalArgumentException if ch is not between 'a' and 'z'.
+    * @return The frequency of the character in this inventory. If the character 
+    *         is not found, returns 0.
     */
     public int get(char ch){
         // Check precondition
@@ -98,6 +97,13 @@ public class LetterInventory {
         return numOfInventoryLetters == 0;
     }
     
+    /**
+    * Returns a string representation of the LetterInventory.
+    * The string contains all letters in sorted order based on their frequency,
+    * with each letter appearing as many times as it occurs in the inventory.
+    *
+    * @return A string representation of the inventory containing only the stored letters.
+    */
     public String toString(){
         StringBuilder result = new StringBuilder("");
         for (char c = 'a'; c <= 'z'; c++){
@@ -106,5 +112,85 @@ public class LetterInventory {
             }
         }
         return result.toString();
+    }
+
+    /**
+     * Creates and returns a new LetterInventory object that represents
+     * the sum of the frequencies of letters in this inventory and the given inventory.
+     *
+     * @param obj The LetterInventory object to add to this inventory.
+     * @return A new LetterInventory containing the combined letter counts.
+     * @throws IllegalArgumentException if obj is null.
+     */
+    public LetterInventory add(LetterInventory obj) {
+        // Check precondition
+        if (obj == null) {
+            throw new IllegalArgumentException("Violation of precondition: " +
+                                    "add. Input inventory cannot be null.");
+        }
+
+        // Create a new inventory to store the sum of frequencies
+        LetterInventory result = new LetterInventory(lowerCaseWord);
+
+        // Loop through all letter frequencies and add them
+        for (int i = 0; i < ALPHABET_LENGTH; i++) {
+            result.frequencies.set(i, this.frequencies.get(i) + obj.frequencies.get(i));
+        }
+
+        return result;
+    }
+
+    /**
+    * Creates and returns a new LetterInventory object that represents
+    * the difference between this inventory and the given inventory.
+    * If any letter count becomes negative, returns null.
+    *
+    * @param obj The LetterInventory object to subtract from this inventory.
+    * @return A new LetterInventory containing the subtracted letter counts, 
+    *         or null if subtraction results in negative counts.
+    * @throws IllegalArgumentException if obj is null.
+    */
+    public LetterInventory subtract(LetterInventory obj) {
+        // Check precondition
+        if (obj == null) {
+            throw new IllegalArgumentException("Violation of precondition: " +
+                                    "subtract. Input inventory cannot be null.");
+        }
+
+        // Create a new inventory to store the difference of frequencies
+        LetterInventory result = new LetterInventory(lowerCaseWord);
+
+        // Loop through all letter frequencies and subtract them
+        for (int i = 0; i < ALPHABET_LENGTH; i++) {
+            int newFrequency = this.frequencies.get(i) - obj.frequencies.get(i);
+
+            // If subtraction results in a negative frequency, return null
+            if (newFrequency < 0) {
+                return null;
+            }
+
+            // Else, set the new value after subtracting
+            result.frequencies.set(i, newFrequency);
+        }
+
+        return result;
+    }
+
+    public Boolean equals(Object obj) {
+        // Check precondition
+        if (obj == null) {
+            throw new IllegalArgumentException("Violation of precondition: " +
+                                    "equals. Input inventory cannot be null.");
+        }
+
+        // Return false if the object's frequencies' size does not match 
+        if ()(obj.frequencies.size() != this.frequencies.size()) {
+            return false;
+        }
+
+        Boolean bool = true;
+        for (int i = 0; i < ALPHABET_LENGTH; i++){
+            if (this.frequencies.get
+        }
     }
 }
