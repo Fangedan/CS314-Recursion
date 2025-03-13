@@ -134,7 +134,8 @@ public class LetterInventory {
 
         // Loop through all letter frequencies and add them
         for (int i = 0; i < ALPHABET_LENGTH; i++) {
-            result.frequencies.set(i, this.frequencies.get(i) + obj.frequencies.get(i));
+            result.frequencies.set(i, this.frequencies.get(i) + 
+            		obj.frequencies.get(i));
         }
 
         return result;
@@ -176,21 +177,40 @@ public class LetterInventory {
         return result;
     }
 
-    public Boolean equals(Object obj) {
-        // Check precondition
+    /**
+    * Checks whether this LetterInventory is equal to another object.
+    * Two LetterInventory objects are considered equal if they have 
+    * the same letter frequencies.
+    *
+    * @param obj The object to compare with this LetterInventory.
+    * @return true if obj is a LetterInventory with identical frequencies, 
+    *         false otherwise.
+    */
+    public boolean equals(Object obj) {
+        // Check if obj is null
         if (obj == null) {
-            throw new IllegalArgumentException("Violation of precondition: " +
-                                    "equals. Input inventory cannot be null.");
-        }
-
-        // Return false if the object's frequencies' size does not match 
-        if ()(obj.frequencies.size() != this.frequencies.size()) {
             return false;
         }
 
-        Boolean bool = true;
-        for (int i = 0; i < ALPHABET_LENGTH; i++){
-            if (this.frequencies.get
+        // Ensure obj is an instance of LetterInventory before casting
+        if (!(obj instanceof LetterInventory)) {
+            return false;
         }
+
+        LetterInventory other = (LetterInventory) obj;
+
+        // Return false if the sizes do not match
+        if (other.frequencies.size() != this.frequencies.size()) {
+            return false;
+        }
+
+        // Compare each letter frequency
+        for (int i = 0; i < ALPHABET_LENGTH; i++) {
+            if (!this.frequencies.get(i).equals(other.frequencies.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
