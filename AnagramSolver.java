@@ -95,7 +95,7 @@ public class AnagramSolver {
 
         // Sort, then utilize validWords recursively in backTrack method
         Collections.sort(validWords);
-        backtrack(result, new ArrayList<>(), targetInventory, validWords, 0, maxWords);
+        backTrack(result, new ArrayList<>(), targetInventory, validWords, 0, maxWords);
         return result;
     }
 
