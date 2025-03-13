@@ -159,26 +159,32 @@ public class LetterInventory {
             throw new IllegalArgumentException("Violation of precondition: " +
                                     "subtract. Input inventory cannot be null.");
         }
-
+    
         // Create a new inventory to store the difference of frequencies
-        LetterInventory result = new LetterInventory(lowerCaseWord);
-
+        LetterInventory result = new LetterInventory("");
+    
         // Loop through all letter frequencies and subtract them
         for (int i = 0; i < ALPHABET_LENGTH; i++) {
             int newFrequency = this.frequencies.get(i) - obj.frequencies.get(i);
-
+    
             // If subtraction results in a negative frequency, return null
             if (newFrequency < 0) {
                 return null;
             }
-
-            // Else, set the new value after subtracting, then decrement numOfInventoryLetters
+    
+            // Set the new frequency value after subtracting
             result.frequencies.set(i, newFrequency);
-            result.numOfInventoryLetters -= obj.frequencies.get(i);
         }
-
+    
+        // Update the total number of inventory letters in the result
+        result.numOfInventoryLetters = 0;
+        for (int i = 0; i < ALPHABET_LENGTH; i++) {
+            result.numOfInventoryLetters += result.frequencies.get(i);
+        }
+    
         return result;
     }
+    
 
     /**
     * Checks whether this LetterInventory is equal to another object.

@@ -93,6 +93,8 @@ public class AnagramSolver {
             }
         }
 
+        System.out.println("DEBUGGING: validWords before: " + validWords);
+
         // Sort, then utilize validWords recursively in backTrack method
         Collections.sort(validWords);
         backTrack(result, new ArrayList<>(), targetInventory, validWords, 0, maxWords);
