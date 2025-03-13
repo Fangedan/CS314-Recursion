@@ -20,6 +20,7 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +29,7 @@ import java.util.Set;
 public class AnagramSolver {
 
     // Instance Variables
-    //private ArrayList<Map<String, LetterInventory>> wordsAndInventory;
     private Map<String, LetterInventory> wordMap;
-    private Set<String> smallDictionary;
-	/*private LetterInventory current;
-	private Map<String, LetterInventory> map1;*/
 
     /*
      * pre: list != null
@@ -40,24 +37,10 @@ public class AnagramSolver {
      *
      * @param list Contains the words to form anagrams from.
      */
-	/*public AnagramSolver(Set<String> dictionary) {
-        if (dictionary == null){
-            throw new IllegalArgumentException("Violation of precondition: " +
-            "AnagramSolver. Dictionary may not be null.");
-        }
-        wordsAndInventory = new ArrayList<>();
-        for(String item : dictionary) {
-            current = new LetterInventory(item);
-            map1 = new HashMap<>();
-			map1.put(item, current);
-            wordsAndInventory.add(map1);
-        }
-    }*/
     public AnagramSolver(Set<String> dictionary) {
         if (dictionary == null) {
             throw new IllegalArgumentException("Dictionary may not be null.");
         }
-        //wordsAndInventory = new ArrayList<>();
         wordMap = new HashMap<>();
         
         for (String word : dictionary) {
@@ -93,15 +76,42 @@ public class AnagramSolver {
             }
         }
 
-        System.out.println("DEBUGGING: validWords before: " + validWords);
-
-        // Sort, then utilize validWords recursively in backTrack method
+        // Sort the valid words lexicographically
         Collections.sort(validWords);
+        
+        // Start backtracking to find all anagrams
         backTrack(result, new ArrayList<>(), targetInventory, validWords, 0, maxWords);
+
+        sortAnagrams(result);
+        
         return result;
     }
+    
+    // Helper method for getAnagrams, sort the result by the size of the 
+    // anagram and lexicographically within each size
+    private void sortAnagrams(List<List<String>> result) {
+        Collections.sort(result, new Comparator<List<String>>() {
+            public int compare(List<String> a, List<String> b) {
+                // First compare by size (fewest words first)
+                if (a.size() != b.size()) {
+                    return a.size() - b.size();
+                }
+                // Then compare lexicographically
+                for (int i = 0; i < Math.min(a.size(), b.size()); i++) {
+                    int cmp = a.get(i).compareTo(b.get(i));
+                    if (cmp != 0) return cmp;
+                }
+                return 0;
+            }
+        });
 
-    // Helper method for getAnagrams, 
+        // Sort each inner list lexicographically
+        for (List<String> anagram : result) {
+            Collections.sort(anagram);
+        }
+    }
+
+    // Helper method for getAnagrams
     private void backTrack(List<List<String>> result, List<String> tempList, 
                             LetterInventory remaining, List<String> words, 
                             int start, int maxWords) {
