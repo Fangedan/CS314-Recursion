@@ -54,11 +54,11 @@ public class LetterInventory {
 
         // Populate frequency list
         for (char c : lowerCaseWord.toCharArray()) {
-            if ('a' > c && c > 'z') { // Ignore non-letter characters
+            if ('a' <= c && c <= 'z') { // Ignore non-letter characters
                 int index = lettersAndIndex.get(c);
                 frequencies.set(index, frequencies.get(index) + 1);
                 numOfInventoryLetters++;
-            }
+            } 
         }
     }
 
@@ -72,7 +72,8 @@ public class LetterInventory {
     */
     public int get(char ch){
         // Check precondition
-        if ('a' > ch && ch > 'z') {
+    	ch = Character.toLowerCase(ch);
+        if ('a' > ch || ch > 'z') {
             throw new IllegalArgumentException("Violation of precondition: " +
             "get. Not a valid Character. Character: " + ch);
         }
@@ -107,9 +108,9 @@ public class LetterInventory {
     public String toString(){
         StringBuilder result = new StringBuilder("");
         for (char c = 'a'; c <= 'z'; c++){
-            if (frequencies.get(lettersAndIndex.get(c))>=1){
-                result.append(c);
-            }
+        	for (int i = 0; i < frequencies.get(lettersAndIndex.get(c)); i++) {
+        		result.append(c);
+        	}
         }
         return result.toString();
     }
@@ -132,10 +133,11 @@ public class LetterInventory {
         // Create a new inventory to store the sum of frequencies
         LetterInventory result = new LetterInventory(lowerCaseWord);
 
-        // Loop through all letter frequencies and add them
+        // Loop through all letter frequencies and add them, then increase numOfInventoryLetters
         for (int i = 0; i < ALPHABET_LENGTH; i++) {
             result.frequencies.set(i, this.frequencies.get(i) + 
             		obj.frequencies.get(i));
+            result.numOfInventoryLetters += obj.frequencies.get(i);
         }
 
         return result;
@@ -170,8 +172,9 @@ public class LetterInventory {
                 return null;
             }
 
-            // Else, set the new value after subtracting
+            // Else, set the new value after subtracting, then decrement numOfInventoryLetters
             result.frequencies.set(i, newFrequency);
+            result.numOfInventoryLetters -= obj.frequencies.get(i);
         }
 
         return result;
